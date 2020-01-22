@@ -46,7 +46,6 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-<<<<<<< HEAD
   displayName: 'Test the project - $(buildConfiguration)'
   inputs:
     command: 'test'
@@ -55,8 +54,6 @@ steps:
     projects: '**/*.Tests.csproj'
 
 - task: DotNetCoreCLI@2
-=======
->>>>>>> master
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
     command: 'publish'
@@ -67,8 +64,4 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
-<<<<<<< HEAD
   condition: succeeded()
-=======
-  condition: succeeded()
->>>>>>> master

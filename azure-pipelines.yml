@@ -56,6 +56,11 @@ steps:
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
       sonar.exclusions=**/wwwroot/lib/**/*
 
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+  inputs:
+    version: '$(dotnetSdkVersion)'
+
 - task: DotNetCoreCLI@2
   displayName: 'Build the project - $(buildConfiguration)'
   inputs:
@@ -82,6 +87,11 @@ steps:
     reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
   displayName: 'Create code coverage report'
 
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.1.505'
+
 - task: SonarCloudAnalyze@1
   displayName: 'run SonarCloud code analysis'
 
@@ -93,6 +103,11 @@ steps:
   inputs:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+  inputs:
+    version: '$(dotnetSdkVersion)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
